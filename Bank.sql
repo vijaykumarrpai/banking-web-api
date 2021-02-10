@@ -39,14 +39,22 @@ DROP TABLE AccountBalance;
 CREATE TABLE AccountBalance (
 	AccBalanceId INT NOT NULL PRIMARY KEY,
     AccountId INT CONSTRAINT FK_ACCOUNTBALANCE FOREIGN KEY(AccountId) REFERENCES Account(AccountId) NOT NULL,
+	Type varchar(255),
+	Amount INT,
 	Balance INT NOT NULL
 );
 
-INSERT INTO AccountBalance VALUES (789, 456, 1800);
+INSERT INTO AccountBalance VALUES (789, 456,'', 0, 1800);
 
 select * from AccountBalance;
 
+
 SELECT cust.CustomerId, cust.Name, cust.Email, cust.Password, accbal.Balance FROM
+Customer cust INNER JOIN Account acc ON cust.CustomerId=acc.CustomerId
+INNER JOIN AccountBalance accbal ON acc.AccountId=accbal.AccountId
+WHERE cust.CustomerId=123;
+
+SELECT cust.CustomerId, accbal.AccountId, accbal.Type, accbal.Amount FROM
 Customer cust INNER JOIN Account acc ON cust.CustomerId=acc.CustomerId
 INNER JOIN AccountBalance accbal ON acc.AccountId=accbal.AccountId
 WHERE cust.CustomerId=123;
