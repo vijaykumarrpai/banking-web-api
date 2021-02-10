@@ -50,6 +50,8 @@ namespace BankAPI.Controllers
             {
                 AccountBalance accDetail = _context.AccountBalances.Where(x => x.AccountId == transaction.AccountId).FirstOrDefault();
                 accDetail.Balance = accDetail.Balance + transaction.Amount;
+                accDetail.Type = "Deposit";
+                accDetail.Amount = transaction.Amount;
                 _context.SaveChanges();
                 return Ok($"Amount {transaction.Amount} deposited successfully. Available balance is {accDetail.Balance}");
             }
@@ -66,6 +68,8 @@ namespace BankAPI.Controllers
             {
                 AccountBalance accDetail = _context.AccountBalances.Where(x => x.AccountId == transaction.AccountId).FirstOrDefault();
                 accDetail.Balance = accDetail.Balance - transaction.Amount;
+                accDetail.Type = "Withdrawal";
+                accDetail.Amount = transaction.Amount;
                 _context.SaveChanges();
                 return Ok($"Amount {transaction.Amount} withdrawn successfully. Available balance is {accDetail.Balance}");
             }
