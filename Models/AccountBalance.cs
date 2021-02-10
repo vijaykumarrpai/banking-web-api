@@ -11,6 +11,10 @@ namespace BankAPI.Models
     {
         public int AccBalanceId { get; set; }
         public int AccountId { get; set; }
+        
+        public string Type { get; set; }
+
+        public int Amount { get; set; }
         public int Balance { get; set; }
 
         public virtual Account Account { get; set; }
